@@ -447,7 +447,9 @@ typedef struct eNB_RRC_INST_s {
 #endif
 } eNB_RRC_INST;
 
-#define MAX_UE_CAPABILITY_SIZE 255
+//#define MAX_UE_CAPABILITY_SIZE 255
+//FIXME-BALBOA 
+#define MAX_UE_CAPABILITY_SIZE 1024 
 typedef struct OAI_UECapability_s {
   uint8_t sdu[MAX_UE_CAPABILITY_SIZE];
   uint8_t sdu_size;
