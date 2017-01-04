@@ -4762,7 +4762,8 @@ rrc_eNB_decode_dcch(
                              choice.c1.choice.ueCapabilityInformation_r8.ue_CapabilityRAT_ContainerList.list.
                              array[0]->ueCapabilityRAT_Container.size, 0, 0);
       //#ifdef XER_PRINT
-      xer_fprint(stdout, &asn_DEF_UE_EUTRA_Capability, (void *)UE_EUTRA_Capability);
+      //FIXME-Balboa Shyam Rai, fix Huawei P9 Phone crash issue
+      //xer_fprint(stdout, &asn_DEF_UE_EUTRA_Capability, (void *)UE_EUTRA_Capability);
       //#endif
 
 #if defined(ENABLE_USE_MME)

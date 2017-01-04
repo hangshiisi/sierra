@@ -27,7 +27,10 @@
 #include "intertask_interface.h"
 
 
-#define S1AP_UE_RADIOCAPABILITY_MAX_SIZE 400
+//#define S1AP_UE_RADIOCAPABILITY_MAX_SIZE 400
+//FIXME-Balboa Shyam Rai, change to fix Huawei P9 phone crash issue
+#define S1AP_UE_RADIOCAPABILITY_MAX_SIZE 500
+
 
 /** \brief Handle decoded incoming messages from SCTP
  * \param assoc_id SCTP association ID
