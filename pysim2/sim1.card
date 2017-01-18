@@ -23,7 +23,8 @@ Pyscard
     sudo /usr/bin/python setup.py build_ext install
 
 
-sudo python setup.py build_ext install
+Example to program a SysmoUSIM-SJS1 (orange) card:
+
 
 
 sudo ./pySim-prog.py -p 0 -x 901 -y 80 -t sysmoUSIM-SJS1 -i 901800000009769 -s 8988211000000097694 --op=11111111111111111111111111111111 -k 8BAF473F2F8FD09487CCCBD7097C6862 -a 43313405
@@ -96,3 +97,53 @@ Please submit your unknown card at:
 http://smartcard-atr.appspot.com/parse?ATR=3B9F96801FC78031A073BE21136743200718000001A5
 
 
+
+
+
+
+=======================================
+
+
+aurora@aurora-eNB-i7:~/EPC/card/pysim$ !259
+sudo ./pySim-prog.py -p 0 -x 901 -y 80 -t sysmoUSIM-SJS1 -i 901800000009769 -s 8988211000000097694 -k 5C45975B96DC5C02D51EFE72995AB5D9 -o 28C61C86B686696D125D909E08C9318B -a 43313405
+Insert card now (or CTRL-C to cancel)
+Generated card parameters :
+ > Name    : Magic
+ > SMSP    : e1ffffffffffffffffffffffff0581005155f5ffffffffffff000000
+ > ICCID   : 8988211000000097694
+ > MCC/MNC : 901/80
+ > IMSI    : 901800000009769
+ > Ki      : 5C45975B96DC5C02D51EFE72995AB5D9
+ > OPC     : 28C61C86B686696D125D909E08C9318B
+ > ACC     : None
+
+Programming ...
+Traceback (most recent call last):
+  File "./pySim-prog.py", line 626, in <module>
+    card.program(cp)
+  File "/home/aurora/EPC/card/pysim/pySim/cards.py", line 447, in program
+    self._scc.verify_chv(0x0A, h2b(p['pin_adm']))
+  File "/home/aurora/EPC/card/pysim/pySim/commands.py", line 107, in verify_chv
+    return self._tp.send_apdu_checksw(self.cla_byte + '2000' + ('%02X' % chv_no) + '08' + fc)
+  File "/home/aurora/EPC/card/pysim/pySim/transport/__init__.py", line 87, in send_apdu_checksw
+    raise RuntimeError("SW match failed ! Expected %s and got %s." % (sw.lower(), rv[1]))
+RuntimeError: SW match failed ! Expected 9000 and got 63c2.
+
+
+
+=========================================
+
+sudo ./pySim-read.py -p 0 -b 9000
+Reading ...
+Traceback (most recent call last):
+  File "./pySim-read.py", line 90, in <module>
+    (res, sw) = scc.read_binary(['3f00', '2fe2'])
+  File "/home/aurora/EPC/card/pysim/pySim/commands.py", line 54, in read_binary
+    r = self.select_file(ef)
+  File "/home/aurora/EPC/card/pysim/pySim/commands.py", line 45, in select_file
+    data, sw = self._tp.send_apdu_checksw(self.cla_byte + "a4000C02" + i)
+  File "/home/aurora/EPC/card/pysim/pySim/transport/__init__.py", line 87, in send_apdu_checksw
+    raise RuntimeError("SW match failed ! Expected %s and got %s." % (sw.lower(), rv[1]))
+RuntimeError: SW match failed ! Expected 9000 and got 6b00.
+
+=========================================
