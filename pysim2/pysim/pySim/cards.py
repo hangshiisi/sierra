@@ -435,10 +435,10 @@ class SysmoUSIMSJS1(Card):
 
 
 		# select MF
-		r = self._scc.select_file(['3f00'])
+		r = self._scc.select_file(['3f00'], isWrite=True)
 
 		# select DF_GSM
-		r = self._scc.select_file(['7f20'])
+		r = self._scc.select_file(['7f20'], isWrite=True)
 
 		# authenticate as ADM using default key (written on the card..)
 		if not p['pin_adm']:

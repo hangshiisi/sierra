@@ -38,13 +38,13 @@ class SimCardCommands(object):
 		self._cla_byte = value
 
 
-	def select_file(self, dir_list):
+	def select_file(self, dir_list, isWrite=False):
 		rv = []
 		for i in dir_list:
-			# write works 
-			data, sw = self._tp.send_apdu_checksw(self.cla_byte + "a4000C02" + i)
-			# read works 
-			#data, sw = self._tp.send_apdu_checksw(self.cla_byte + "a4000002" + i)
+			if isWrite: # write works 
+				data, sw = self._tp.send_apdu_checksw(self.cla_byte + "a4000C02" + i)
+			else: # read works 
+				data, sw = self._tp.send_apdu_checksw(self.cla_byte + "a4000002" + i)
 			rv.append(data)
 		return rv
 
@@ -60,7 +60,7 @@ class SimCardCommands(object):
 	def update_binary(self, ef, data, offset=0):
 		if not hasattr(type(ef), '__iter__'):
 			ef = [ef]
-		self.select_file(ef)
+		self.select_file(ef, isWrite=True)
 		pdu = self.cla_byte + 'd6%04x%02x' % (offset, len(data)/2) + data
 		return self._tp.send_apdu_checksw(pdu)
 
